@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GifTastic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Search Term</h1>
+
+    <!-- This form will be where users input data about the movies -->
+    <form id="search-form">
+      <label for="search-input">Search for anything you want: </label>
+      <input type="text" id="search-input"><br>
+
+      <!-- This button will trigger our AJAX call -->
+      <input id="find-gif" type="submit" value="GIF Search">
+    </form>
+
+    <!-- We'll be dumping our JSON contents in here -->
+    <div id="gif-view"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+  </div>
+</body>
+
+</html>
