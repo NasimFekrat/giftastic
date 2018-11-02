@@ -6,27 +6,30 @@
   <title>GifTastic</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Search Term</h1>
-
-    <!-- This form will be where users input data about the movies -->
-    <form id="search-form">
-      <label for="search-input">Search for anything you want: </label>
-      <input type="text" id="search-input"><br>
-
-      <!-- This button will trigger our AJAX call -->
-      <input id="find-gif" type="submit" value="GIF Search">
-    </form>
-
-    <!-- We'll be dumping our JSON contents in here -->
-    <div id="gif-view"></div>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 btnDiv"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8"><div class="row gifDiv"></div></div>
+            <div class="col-sm-4">
+                <form>
+                    <div class="form-group">
+                        <label for="searchInput">Add your favorite Christmas thing</label>
+                        <input type="text" class="form-control btnInput">
+                    </div>
+                    <button type="submit" class="btn btn-primary addBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
-  </div>
+    
 </body>
 
 </html>

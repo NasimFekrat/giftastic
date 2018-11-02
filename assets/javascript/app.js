@@ -1,35 +1,84 @@
-// This .on("click") function will trigger the AJAX Call
-$("#find-gif").on("click", function(event) {
+var topics = ["angel" , "artificial tree" , "bells" , "birth" , "blizzard" , "blustery" , "boots" , "candle" , "candy" , "candy cane" , "cap" , "cardDecember 25" , "decorate" , "decorations" , "happy" , "holiday" , "holly" , "hope"];
 
-    // event.preventDefault() can be used to prevent an event's default behavior.
-    // Here, it prevents the submit button from trying to submit a form when clicked
+function topicbtn(){
+    /*set topic button*/
+    for(var i=0; i<topics.length; i++){
+        var buttonTopic = $('<button>');
+        buttonTopic.html(topics[i]);
+        buttonTopic.attr("type" , "button");
+        buttonTopic.attr("value" , topics[i]);
+        buttonTopic.addClass("btn btn-secondary m-1 gifBtn");
+        $(".btnDiv").append(buttonTopic);
+    }
+    /*set topic button*/
+};
+
+/*submit button function*/
+$(".addBtn").click(function(){
     event.preventDefault();
+    topics.push($(".btnInput").val());//add the user text to topic array
+    $(".btnDiv").empty();
+    start();
+});
+/*submit button function*/
 
-    // Here we grab the text from the input box
-    var gif = $("#search-input").val();
-
-    // Here we construct our URL
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=tih1sM9xO9rI3QB0DwNzTqD5gvMJr3n3&limit=10";
-
-    // Write code between the dashes below to hit the queryURL with $ajax, then take the response data
-    // and display it in the div with an id of movie-view
-
-    // ------YOUR CODE GOES IN THESE DASHES. DO NOT MANUALLY EDIT THE HTML ABOVE.
-
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-        for(var i=0; i<10; i++){
-            var gifurl = JSON.stringify(response.data[i].images.fixed_height_still.url);
-            $("#gif-view").prepend("<button class='imagemove'><img src=" + gifurl + "/></button>");
-            $(".imagemove").on("click",function(){
-                gifurl = JSON.stringify(response.data[i].images.original.url)
-                $(".imagemove").html("<button class='imagemove'><img src=" + gifurl + "/></button>");
+function start(){
+    topicbtn();//set the topic buttons
+    // This .on("click") function will trigger the AJAX Call
+    $(".gifBtn").click(function(){
+        var gif = this.value;// Here we grab the text from the button
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=tih1sM9xO9rI3QB0DwNzTqD5gvMJr3n3&limit=10";// Here we construct our URL
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+            }).then(function(response) {
+                for(var i=0; i<10; i++){
+                    var gifSecondDiv = $("<div>");
+                    gifSecondDiv.addClass("col-sm-4 mx-0 my-1");
+                    var p = $("<p>").text("Rating: " + response.data[i].rating);
+                    var gifImg = $("<img>");
+                    gifImg.addClass("img-thumbnail imagemove");
+                    gifImg.attr({"src": response.data[i].images.fixed_height_still.url,
+                                "data-still": response.data[i].images.fixed_height_still.url,
+                                "data-animate": response.data[i].images.original.url,
+                                "data-state":"still"});
+                    gifSecondDiv.append(p);
+                    gifSecondDiv.append(gifImg);
+                    $(".gifDiv").prepend(gifSecondDiv);
+                }
+                
+                $(document).on("click", ".imagemove" , function() {
+                    var state = $(this).attr("data-state");
+                    if(state === "still"){
+                        $(this).attr("src", $(this).attr("data-animate"));
+                        $(this).attr("data-state", "animate");
+                        console.log($(this).attr("data-state"));
+                    }else{
+                        $(this).attr("src", $(this).attr("data-still"));
+                        $(this).attr("data-state", "still");
+                        console.log($(this).attr("data-state"));
+                    }
+                });  
             });
-        }
     });
+    /*
+    $(".imagemove").on("click", function() {
+        /*
+        // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+        var state = $(this).attr("data-state");
+        // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+        // Then, set the image's data-state to animate
+        // Else set src to the data-still value
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        } else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+          
+         alert("yay!!!");
+        }
+    });*/
+};
 
-    // -----------------------------------------------------------------------
-
-  });
+start();

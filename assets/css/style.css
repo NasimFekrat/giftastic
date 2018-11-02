@@ -1,4 +1,8 @@
-img{
+html , body{
+    padding: 0px;
+    margin: 0px;
+}
+.imagemove{
     width: 200px;
-    height: 200px; 
-  }
+    height: 200px;
+}
