@@ -16,3 +16,10 @@ In this application, the GIPHY API is used to make a dynamic web page that popul
    * This data is provided by the GIPHY API.
 
 6. User can type any input and adds it into the buttons on the page.
+
+- - -
+
+### URL
+
+* You can find all those cool gifs in following URL:
+  * https://nasimfekrat.github.io/giftastic/
